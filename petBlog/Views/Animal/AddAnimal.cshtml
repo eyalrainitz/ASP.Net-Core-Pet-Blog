@@ -1,0 +1,42 @@
+﻿@model petBlog.Models.AnimalViewModel
+@{
+    ViewData["Title"] = "AddAnimal";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<form asp-action="NewAnimalPage" enctype="multipart/form-data">
+    <p>
+
+        <label asp-for="Name"></label>
+        <input asp-for="Name" />
+        <span asp-validation-for="Name"></span>
+    </p>
+    <p>
+        <label asp-for="Age"></label>
+        <input asp-for="Age" />
+        <span asp-validation-for="Age"></span>
+    </p>
+    <p>
+        <label asp-for="Description"></label>
+        <input asp-for="Description" />
+        <span asp-validation-for="Description"></span>
+    </p>
+    <p>
+        <label asp-for="CategoryId"></label>
+        <select asp-for="CategoryId">
+
+            @foreach (Category item in ViewBag.Categories)
+            {
+                <option value="@item.CategoryId">@item.CategoryName</option>
+            }
+        </select>
+        <span asp-validation-for="CategoryId"></span>
+    </p>
+    <p>
+
+        <label asp-for="Photo"></label>
+        <input type="file" accept="image/*" asp-for="Photo" />
+        <span asp-validation-for="Photo"></span>
+    </p>
+    <input type="submit" value="Add Animal" />
+</form>

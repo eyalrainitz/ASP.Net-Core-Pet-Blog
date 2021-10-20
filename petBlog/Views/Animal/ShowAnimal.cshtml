@@ -1,0 +1,51 @@
+﻿@model petBlog.Models.Animal
+@{
+    ViewData["Title"] = "ShowAnimal";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style>
+    table {
+        border: 1px solid black;
+        width: 100%;
+    }
+
+    th, td {
+        width: 100%;
+        border: 1px solid black;
+    }
+</style>
+<table class="table table-bordered table-responsive table-hover" width="100%">
+    <tr>
+        <th>Picture</th>
+        <th>Name </th>
+        <th>Age</th>
+        <th>Description</th>
+        <th>Comment Number</th>
+    </tr>
+    <tr>
+        <td align="center"> <img src=@Url.Content(($"/Images/{Model.PictureName}")) width="500" height="400" /></td>
+        <td align="center"> @Model.Name</td>
+        <td align="center"> @Model.Age</td>
+        <td align="center"> @Model.Description</td>
+        <td align="center"> @Model.Comment.Count</td>
+    </tr>
+</table>
+<table class="table table-bordered table-responsive table-hover">
+    @foreach (var item in Model.Comment)
+    {
+        <tr>
+            <td align="center"> @item.CommentText</td>
+            <td align="center"> @item.CommentId</td>
+        </tr>
+    }
+</table>
+<div>
+    <form asp-action="AddComment" method="post" asp-route-animalId="@Model.AnimalId">
+        <br />
+        <br />
+        <label for="fname">Comment:</label><br>
+        <textarea id="CommentId" name="comment"></textarea>
+        <input type="submit" value="Submit" />
+    </form>
+</div>
+

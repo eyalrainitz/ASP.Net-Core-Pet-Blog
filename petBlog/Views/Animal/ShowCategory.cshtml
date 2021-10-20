@@ -1,0 +1,46 @@
+﻿@{
+    ViewData["Title"] = "ShowCategory";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Category</h1>
+<select id="UrlList" onchange="Donavigate()">
+    <option>
+        Select
+    </option>
+    @foreach (Category item in ViewBag.Categories)
+    {
+        <option value="@Url.Action("ShowCategory" , "Animal",new {id = item.CategoryId})">
+            @item.CategoryName
+        </option>
+    }
+</select>
+<div>
+    <table class="table table-bordered table-responsive table-hover">
+        <tr>
+            <th>Picture</th>
+            <th>Name </th>
+            <th>Age</th>
+            <th>Description</th>
+            <th>Comment Number</th>
+        </tr>
+        @foreach (Animal item in ViewBag.Animal)
+        {
+    <tr>
+        <td><img src=@Url.Content(($"/Images/{item.PictureName}")) width="500" height="400" /></td>
+        <td>@item.Name</td>
+        <td>@item.Age</td>
+        <td>@item.Description</td>
+        <td>@item.Comment.Count()</td>
+        <td><input type="button" title="Show" value="Show" onclick="location.href='@Url.Action("ShowAnimal", "Animal", new { id = item.AnimalId })'" /></td>
+    </tr>
+        }
+    </table>
+</div>
+
+
+<script>
+    function Donavigate() {
+        window.location.href = document.getElementById('UrlList').value;
+    }
+</script>

@@ -1,0 +1,39 @@
+﻿@model IEnumerable<Animal>
+@{
+    ViewData["Title"] = "Admin";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<p align="center" >
+<button value="Delete" onclick="location.href ='@Url.Action("AddAnimal","Animal")'">Add Animal</button>
+</p>
+
+<div>
+    <table class="table table-bordered table-responsive table-hover">
+        <tr>
+            <th>PictureName </th>
+            <th>Name </th>
+            <th>Age</th>
+            <th>Description</th>
+            <th>Comment Number</th>
+            <th>Delete</th>
+            <th>Edit</th>
+        </tr>
+        @{foreach (var animal in Model)
+            {
+                <tr>
+                    <td><img src=@Url.Content(($"/Images/{animal.PictureName}")) width="500" height="400" /></td>
+                    <td>@animal.Name</td>
+                    <td>@animal.Age</td>
+                    <td>@animal.Description</td>
+                    <td>@animal.Comment.Count()</td>
+                    <td><input type="button" value="Show" onclick="location.href='@Url.Action("ShowAnimal", "Animal", new { id = animal.AnimalId })'" /></td>
+                    <td><input type="button" value="Delete" onclick="location.href ='@Url.Action("Delete","Animal", animal)'" /></td>
+                    <td><input type="button" value="Edit" onclick="window.location.href =`EditAnimalPage/${@animal.AnimalId}`" /></td>
+                   @* <td><input type="button" value="Edit" onclick="location.href ='@Url.Action("EditAnimalPage","Animal",  new { id = animal.AnimalId }))'" /></td>*@
+                    
+                </tr>
+            }
+        }
+    </table>
+</div>
